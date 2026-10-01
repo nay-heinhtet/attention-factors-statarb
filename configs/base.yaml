@@ -28,6 +28,7 @@ data:
   edge_tolerance_days: 5
   review_gap_days: 10
   gap_max_days: 60
+  stale_run_days: 3          # ≥3 identical consecutive closes → repeat days are not tradable (halts)
   return_review_threshold: 0.40
 
 universe:

@@ -119,3 +119,4 @@ NYX,,2013-11-12,tiingo,US000000009182,high,NYSE Euronext; fetched by Tiingo perm
 NFX,,2019-02-14,tiingo,US000000000459,high,"Newfield Exploration; ticker reused, fetched by Tiingo permaTicker"
 PLL,,2015-08-30,none,,high,Pall Corp; Tiingo permaTicker US000000075569 returns no data
 CTRA,,,tiingo,CTRA,high,"Coterra; Tiingo lists CTRA twice, price level checked 2026-10-01"
+DD,,2017-08-31,none,,high,"E.I. du Pont (pre-merger); Yahoo DD history before 2017 is Dow Chemical's, and Tiingo permaTicker US000000000089 returns no data"

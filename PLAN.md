@@ -1,6 +1,6 @@
 # Attention-Based Statistical Arbitrage: Build Plan
 
-**Status:** Phase 1 done 2026-10-01 (data acquired; every spell resolved or explicitly unrecoverable). Next: Phase 2.
+**Status:** Phase 2 done 2026-10-01 (panel, halt rules, monthly universes, coverage report). Next: Phase 3.
 **What this is:** the spec for building the project. Every design decision is already made (see §0).
 **Paper:** Epstein, Wang, Choi, Pelger, "Attention Factors for Statistical Arbitrage", arXiv:2510.11616 (ICAIF '25). This plan is based on the full paper text plus live checks of every data source (Appendix B).
 

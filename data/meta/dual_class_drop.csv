@@ -4,3 +4,4 @@ yahoo:FOX,class B; keep yahoo:FOXA
 yahoo:NWS,class B; keep yahoo:NWSA
 tiingo:DISCK,class C; keep Discovery class A
 yahoo:UA,class C; keep yahoo:UAA
+tiingo:CMCSK,Comcast special class K; keep yahoo:CMCSA

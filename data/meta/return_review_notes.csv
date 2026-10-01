@@ -1,0 +1,13 @@
+date,asset_id,ret,verdict,note
+2012-06-29,tiingo:HSH,0.729,data error,Sara Lee → Hillshire split-off; fixed in price_fixes.csv
+2012-08-08,tiingo:DFODQ,0.406,real,Dean Foods earnings and WhiteWave IPO news
+2016-07-05,yahoo:DHR,0.612,data error,Fortive spin-off adjustment; fixed in price_fixes.csv
+2018-06-04,yahoo:NKTR,-0.418,real,Nektar trial data at ASCO
+2018-10-29,tiingo:RHT,0.454,real,IBM agrees to acquire Red Hat
+2019-01-14,yahoo:PCG,-0.524,real,PG&E announces bankruptcy filing
+2019-01-24,yahoo:PCG,0.746,real,Cal Fire clears PG&E of the Tubbs fire
+2020-03-09,yahoo:OXY,-0.520,real,oil price crash
+2020-06-04,yahoo:AAL,0.411,real,airline reopening rally
+2020-11-04,yahoo:BIIB,0.440,real,FDA briefing documents on aducanumab
+2024-07-26,yahoo:DXCM,-0.407,real,Dexcom guidance cut
+2025-10-29,yahoo:FISV,-0.440,real,Fiserv guidance cut

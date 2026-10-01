@@ -1,0 +1,82 @@
+member_ticker,valid_from,valid_to,source,symbol,confidence,note
+FB,,,yahoo,META,high,Facebook→Meta 2022-06-09; Yahoo FB is now an unrelated ETF (2025-06-26)
+ANTM,,,yahoo,ELV,high,Anthem→Elevance 2022-06-28
+ABC,,,yahoo,COR,high,AmerisourceBergen→Cencora 2023-08-30
+BLL,,,yahoo,BALL,high,Ball ticker change 2022-05
+COG,,,tiingo,CTRA,verify,Cabot→Coterra 2021-10; Yahoo CTRA empty as of 2026-09
+CTL,,,yahoo,LUMN,high,CenturyLink→Lumen 2020-09
+DISCA,,,yahoo,WBD,high,Discovery→Warner Bros. Discovery 2022-04
+DWDP,,,yahoo,DD,high,DowDuPont→DuPont 2019-06
+FBHS,,,yahoo,FBIN,high,Fortune Brands Home & Security→Fortune Brands Innovations 2022-12
+FLT,,,yahoo,CPAY,high,Fleetcor→Corpay 2024-03
+HRS,,,yahoo,LHX,high,Harris→L3Harris 2019-07
+JEC,,,yahoo,J,high,Jacobs 2019-12
+LB,,2021-08-03,yahoo,BBWI,high,L Brands→Bath & Body Works; LB reused by another company from 2024
+SYMC,,,yahoo,GEN,high,Symantec→NortonLifeLock→Gen Digital
+NLOK,,,yahoo,GEN,high,NortonLifeLock→Gen Digital 2022-11
+HCP,,,yahoo,DOC,high,HCP→Healthpeak (PEAK)→DOC
+PEAK,,,yahoo,DOC,high,Healthpeak→DOC 2024-03
+PKI,,,yahoo,RVTY,high,PerkinElmer→Revvity 2023-05
+RE,,,yahoo,EG,high,Everest Re→Everest Group 2023-07
+TMK,,,yahoo,GL,high,Torchmark→Globe Life 2019-08
+UTX,,,yahoo,RTX,high,United Technologies→RTX 2020-04
+WLTW,,,yahoo,WTW,high,Willis Towers Watson 2022-01
+KORS,,,yahoo,CPRI,high,Michael Kors→Capri
+GPS,,,yahoo,GAP,high,Gap Inc. ticker change 2024
+HFC,,,yahoo,DINO,high,HollyFrontier→HF Sinclair 2022-03
+CDAY,,,tiingo,DAY,verify,Ceridian→Dayforce 2024-02; taken private (Tiingo DAY ends 2026-02-03)
+ARNC,2016-11-01,2020-04-06,yahoo,HWM,high,Arconic Inc.→Howmet 2020-04; ARNC later reused by Arconic Corp (price level checked 2026-10-01)
+ARNC,,2016-10-31,none,,high,pre-split Alcoa Inc. history not available on Yahoo
+IR,,2020-02-28,yahoo,TT,high,Ingersoll-Rand plc→Trane Technologies 2020-03-02 (price level checked 2026-10-01)
+IR,2020-03-02,,yahoo,IR,high,Ingersoll Rand Inc. (formerly Gardner Denver) (price level checked 2026-10-01)
+FI,,,yahoo,FISV,high,Fiserv FISV→FI (2023-06)→FISV (2025-11) (price level checked 2026-10-01)
+BK,,,yahoo,BNY,high,BNY Mellon ticker change (membership file 2026-05-21) (price level checked 2026-10-01)
+MMC,,,yahoo,MRSH,high,Marsh McLennan ticker change (membership file 2026-01-14) (price level checked 2026-10-01)
+BHGE,,,yahoo,BKR,high,Baker Hughes lineage BHI→BHGE→BKR; check the 2017 merger in the |ret| review (price level checked 2026-10-01)
+ADS,,,yahoo,BFH,high,Alliance Data→Bread Financial 2022 (price level checked 2026-10-01)
+CBS,,,yahoo,PSKY,high,CBS→ViacomCBS→Paramount→Paramount Skydance; Yahoo PSKY history starts 2008 (price level checked 2026-10-01)
+VIAC,,,yahoo,PSKY,high,same lineage as CBS (price level checked 2026-10-01)
+SATS,,,yahoo,ECHO,high,EchoStar ticker change (membership file 2026-06-24) (price level checked 2026-10-01)
+SIVB,,,tiingo,SIVBQ,high,SVB Financial; failed 2023-03 (Tiingo SIVBQ covers 1990→2026)
+FRC,,,tiingo,FRCB,high,First Republic; failed 2023-05 (Tiingo FRCB covers 2010-12→2026)
+EQR,,,yahoo,VMRK,high,Equity Residential ticker change 2026-08 (Tiingo VMRK listed since 1993-08-12; 2019-12-31 close 80.92 matches EQR)
+BIG,,,tiingo,BIGGQ,high,Big Lots; bankrupt 2024
+BTUUQ,,,tiingo,BTU,verify,old Peabody listing (Tiingo BTU 2001-05 → 2017-03); BTU reused after bankruptcy
+DTV,,,tiingo,DTV1,high,DirecTV; acquired by AT&T 2015 (Tiingo renumbers reused tickers)
+MNK,,,tiingo,MNKKQ,high,Mallinckrodt; bankrupt 2020
+NE,,2015-07-20,tiingo,NEBLQ,high,old Noble Corp; bankrupt 2020; NE reused 2021
+RSHCQ,,,tiingo,RSH,high,RadioShack (Tiingo RSH 1982 → 2015)
+TE,,2016-07-01,tiingo,TE1,high,TECO Energy; acquired 2016; TE reused
+WIN,,,tiingo,WINMQ,high,Windstream; bankrupt 2019
+WYND,,2018-05-31,tiingo,WYN,high,Wyndham Worldwide (Tiingo WYN 2006 → 2018)
+CCE,,,tiingo,CCEP,verify,Coca-Cola Enterprises → Coca-Cola Europacific (Tiingo CCEP listed since 1986)
+DF,,,tiingo,DFODQ,high,Dean Foods; bankrupt 2019
+ESV,,,tiingo,VALPQ,high,Ensco → Valaris; bankrupt 2020
+Q,,2011-04-01,none,,high,Qwest; acquired 2011; Q reused by Qnity 2025
+LIFE,,2014-01-24,none,,high,Life Technologies; acquired 2014; LIFE reused 2026
+MMI,,2012-05-22,none,,high,Motorola Mobility; acquired 2012; MMI reused
+APOL,,,none,,high,Apollo Education; no free price history
+ATGE,,,none,,high,DeVry/Adtalem; not on Yahoo or Tiingo under ATGE as of 2026-10; no free price history
+BDK,,,none,,high,Black & Decker; merged 2010; no free price history
+BMC,,,none,,high,BMC Software; taken private 2013; no free price history
+BNI,,,none,,high,Burlington Northern; acquired 2010; no free price history
+CBE,,,none,,high,Cooper Industries; acquired 2012; no free price history
+CEPH,,,none,,high,Cephalon; acquired 2011; no free price history
+EKDKQ,,,none,,high,Eastman Kodak (old equity); no free price history
+FII,,,none,,high,Federated Investors; no free price history
+GR,,,none,,high,Goodrich; acquired 2012; no free price history
+IGT,,,none,,high,International Game Technology; acquired 2015; no free price history
+JAVA,,,none,,high,Sun Microsystems; acquired 2010; no free price history
+JCP,,,none,,high,J.C. Penney; no free price history
+LXK,,,none,,high,Lexmark; removed 2012; no free price history
+MEE,,,none,,high,Massey Energy; acquired 2011; no free price history
+MI,,,none,,high,Marshall & Ilsley; acquired 2011; no free price history
+MOLX,,,none,,high,Molex; acquired 2013; no free price history
+NOVL,,,none,,high,Novell; acquired 2011; no free price history
+NSM,,,none,,high,National Semiconductor; acquired 2011; no free price history
+PGN,,,none,,high,Progress Energy; acquired 2012; no free price history
+PTV,,,none,,high,Pactiv; acquired 2010; no free price history
+QLGC,,,none,,high,QLogic; removed 2011; no free price history
+RX,,,none,,high,IMS Health; taken private 2010; no free price history
+SUNEQ,,,none,,high,SunEdison/MEMC; Tiingo SUNE ambiguous (reused); no free price history
+TLAB,,,none,,high,Tellabs; acquired 2013; no free price history

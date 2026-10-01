@@ -1,6 +1,6 @@
 # Attention-Based Statistical Arbitrage: Build Plan
 
-**Status:** Phase 0 done 2026-10-01 (environment, skeleton, tests passing). Next: Phase 1.
+**Status:** Phase 1 done 2026-10-01 (data acquired; every spell resolved or explicitly unrecoverable). Next: Phase 2.
 **What this is:** the spec for building the project. Every design decision is already made (see §0).
 **Paper:** Epstein, Wang, Choi, Pelger, "Attention Factors for Statistical Arbitrage", arXiv:2510.11616 (ICAIF '25). This plan is based on the full paper text plus live checks of every data source (Appendix B).
 
@@ -352,6 +352,11 @@ Seed it from **Appendix A**.
 - **(a) Rename:** add an alias row.
 - **(b) Delisted under another symbol:** add an alias row with source tiingo.
 - **(c) Unrecoverable:** add an alias row with `source=none` and a note.
+
+**Reused tickers on Tiingo (found 2026-10-01).** For a reused ticker, Tiingo's price endpoint returns the *current* owner. The old listing can still be fetched by its **permaTicker**:
+1. Find it with `GET https://api.tiingo.com/tiingo/utilities/search?query={ticker}&exactTickerMatch=true&includeDelisted=true`, then pick the inactive listing by company name. `TiingoClient.search` does this request.
+2. Put the permaTicker in the alias `symbol` column, e.g. STI → `US000000000420` (SunTrust).
+3. Limit the alias row's `valid_to` to the old spell, so later reuses of the ticker still resolve normally.
 
 After editing aliases, re-run `yahoo`, then `tiingo`, then `resolve`. Cached symbols are skipped, so only new symbols download. Repeat until no rows are left `unresolved`.
 

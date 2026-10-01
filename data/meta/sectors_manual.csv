@@ -1,1 +1,89 @@
 asset_id,sector
+tiingo:ABMD,Healthcare
+tiingo:AET,Healthcare
+tiingo:AGN,Healthcare
+tiingo:ALXN,Healthcare
+tiingo:ANDV,Energy
+tiingo:ANSS,Technology
+tiingo:APC,Energy
+tiingo:ATVI,Communication Services
+tiingo:AVB,Real Estate
+tiingo:CA,Technology
+tiingo:CELG,Healthcare
+tiingo:CERN,Healthcare
+tiingo:CHK,Energy
+tiingo:CMA,Financial Services
+tiingo:COL,Industrials
+tiingo:CSRA,Technology
+tiingo:CTLT,Healthcare
+tiingo:CTRA,Energy
+tiingo:CTXS,Technology
+tiingo:CXO,Energy
+tiingo:DAY,Technology
+tiingo:DFS,Financial Services
+tiingo:DISCK,Communication Services
+tiingo:DISH,Communication Services
+tiingo:DRE,Real Estate
+tiingo:EA,Communication Services
+tiingo:ESRX,Healthcare
+tiingo:ETFC,Financial Services
+tiingo:EVHC,Healthcare
+tiingo:FL,Consumer Cyclical
+tiingo:FLIR,Technology
+tiingo:FOX,Communication Services
+tiingo:FOXA,Communication Services
+tiingo:FRCB,Financial Services
+tiingo:GGP,Real Estate
+tiingo:HBI,Consumer Cyclical
+tiingo:HES,Energy
+tiingo:HOLX,Healthcare
+tiingo:INFO,Industrials
+tiingo:IPG,Communication Services
+tiingo:JNPR,Technology
+tiingo:JWN,Consumer Cyclical
+tiingo:K,Consumer Defensive
+tiingo:KSU,Industrials
+tiingo:LEG,Consumer Cyclical
+tiingo:LLL,Industrials
+tiingo:MON,Basic Materials
+tiingo:MRO,Energy
+tiingo:MXIM,Technology
+tiingo:MYL,Healthcare
+tiingo:NBL,Energy
+tiingo:NFX,Energy
+tiingo:NLSN,Industrials
+tiingo:PBCT,Financial Services
+tiingo:PDCO,Healthcare
+tiingo:PX,Basic Materials
+tiingo:PXD,Energy
+tiingo:RHT,Technology
+tiingo:RTN,Industrials
+tiingo:SBNY,Financial Services
+tiingo:SCG,Utilities
+tiingo:SEE,Consumer Cyclical
+tiingo:SIVBQ,Financial Services
+tiingo:SNI,Communication Services
+tiingo:SRCL,Industrials
+tiingo:STI,Financial Services
+tiingo:TIF,Consumer Cyclical
+tiingo:TSS,Technology
+tiingo:TWTR,Communication Services
+tiingo:TWX,Communication Services
+tiingo:VAR,Healthcare
+tiingo:VIAB,Communication Services
+tiingo:WBA,Healthcare
+tiingo:WCG,Healthcare
+tiingo:WRK,Consumer Cyclical
+tiingo:WYN,Consumer Cyclical
+tiingo:XEC,Energy
+tiingo:XL,Financial Services
+tiingo:XLNX,Technology
+yahoo:FISV,Technology
+yahoo:GENZ,Healthcare
+tiingo:TFCFA,Communication Services
+tiingo:US000000000125,Energy
+tiingo:US000000000296,Basic Materials
+tiingo:US000000000420,Financial Services
+tiingo:US000000000459,Energy
+tiingo:US000000000517,Technology
+tiingo:US000000010670,Consumer Cyclical

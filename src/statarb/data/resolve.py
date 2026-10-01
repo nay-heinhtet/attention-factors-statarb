@@ -111,7 +111,9 @@ def resolve_spells(
 
             for source, symbol, status in candidates:
                 reused = False
-                if source == "tiingo":
+                # Alias rows are authoritative (they may name a Tiingo permaTicker, which isn't in
+                # the ticker list); default Tiingo candidates must be listed for these dates.
+                if source == "tiingo" and status != "alias":
                     listings = tiingo_listings(symbol)
                     if not _overlaps(listings, seg_start, seg_end):
                         continue
@@ -155,8 +157,11 @@ def run(cfg: dict, args) -> None:
     by_ticker = {t: g for t, g in supported.groupby("ticker")}
     empty = supported.iloc[:0]
     cache: dict[tuple[str, str], pd.DatetimeIndex | None] = {}
+    tiingo_missing = set(tiingo.missing_path(paths).read_text().split()) if tiingo.missing_path(paths).exists() else set()
 
     def valid_dates(source: str, symbol: str) -> pd.DatetimeIndex | None:
+        if source == "tiingo" and symbol in tiingo_missing:
+            return pd.DatetimeIndex([])  # Tiingo answered with no data: fails validation, not "pending"
         if (source, symbol) not in cache:
             prices = yahoo.load_prices(paths, symbol) if source == "yahoo" else tiingo.load_prices(paths, symbol)
             col = "Adj Close" if source == "yahoo" else "adjClose"

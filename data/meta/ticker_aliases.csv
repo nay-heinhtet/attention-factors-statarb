@@ -3,7 +3,7 @@ FB,,,yahoo,META,high,Facebook→Meta 2022-06-09; Yahoo FB is now an unrelated ET
 ANTM,,,yahoo,ELV,high,Anthem→Elevance 2022-06-28
 ABC,,,yahoo,COR,high,AmerisourceBergen→Cencora 2023-08-30
 BLL,,,yahoo,BALL,high,Ball ticker change 2022-05
-COG,,,tiingo,CTRA,verify,Cabot→Coterra 2021-10; Yahoo CTRA empty as of 2026-09
+COG,,,tiingo,CTRA,high,Cabot→Coterra 2021-10; Yahoo CTRA empty as of 2026-09 (price level checked 2026-10-01)
 CTL,,,yahoo,LUMN,high,CenturyLink→Lumen 2020-09
 DISCA,,,yahoo,WBD,high,Discovery→Warner Bros. Discovery 2022-04
 DWDP,,,yahoo,DD,high,DowDuPont→DuPont 2019-06
@@ -24,7 +24,7 @@ WLTW,,,yahoo,WTW,high,Willis Towers Watson 2022-01
 KORS,,,yahoo,CPRI,high,Michael Kors→Capri
 GPS,,,yahoo,GAP,high,Gap Inc. ticker change 2024
 HFC,,,yahoo,DINO,high,HollyFrontier→HF Sinclair 2022-03
-CDAY,,,tiingo,DAY,verify,Ceridian→Dayforce 2024-02; taken private (Tiingo DAY ends 2026-02-03)
+CDAY,,,tiingo,DAY,high,Ceridian→Dayforce 2024-02; taken private (Tiingo DAY ends 2026-02-03) (price level checked 2026-10-01)
 ARNC,2016-11-01,2020-04-06,yahoo,HWM,high,Arconic Inc.→Howmet 2020-04; ARNC later reused by Arconic Corp (price level checked 2026-10-01)
 ARNC,,2016-10-31,none,,high,pre-split Alcoa Inc. history not available on Yahoo
 IR,,2020-02-28,yahoo,TT,high,Ingersoll-Rand plc→Trane Technologies 2020-03-02 (price level checked 2026-10-01)
@@ -41,7 +41,6 @@ SIVB,,,tiingo,SIVBQ,high,SVB Financial; failed 2023-03 (Tiingo SIVBQ covers 1990
 FRC,,,tiingo,FRCB,high,First Republic; failed 2023-05 (Tiingo FRCB covers 2010-12→2026)
 EQR,,,yahoo,VMRK,high,Equity Residential ticker change 2026-08 (Tiingo VMRK listed since 1993-08-12; 2019-12-31 close 80.92 matches EQR)
 BIG,,,tiingo,BIGGQ,high,Big Lots; bankrupt 2024
-BTUUQ,,,tiingo,BTU,verify,old Peabody listing (Tiingo BTU 2001-05 → 2017-03); BTU reused after bankruptcy
 DTV,,,tiingo,DTV1,high,DirecTV; acquired by AT&T 2015 (Tiingo renumbers reused tickers)
 MNK,,,tiingo,MNKKQ,high,Mallinckrodt; bankrupt 2020
 NE,,2015-07-20,tiingo,NEBLQ,high,old Noble Corp; bankrupt 2020; NE reused 2021
@@ -49,7 +48,7 @@ RSHCQ,,,tiingo,RSH,high,RadioShack (Tiingo RSH 1982 → 2015)
 TE,,2016-07-01,tiingo,TE1,high,TECO Energy; acquired 2016; TE reused
 WIN,,,tiingo,WINMQ,high,Windstream; bankrupt 2019
 WYND,,2018-05-31,tiingo,WYN,high,Wyndham Worldwide (Tiingo WYN 2006 → 2018)
-CCE,,,tiingo,CCEP,verify,Coca-Cola Enterprises → Coca-Cola Europacific (Tiingo CCEP listed since 1986)
+CCE,,,tiingo,CCEP,high,Coca-Cola Enterprises → Coca-Cola Europacific (Tiingo CCEP listed since 1986) (price level checked 2026-10-01)
 DF,,,tiingo,DFODQ,high,Dean Foods; bankrupt 2019
 ESV,,,tiingo,VALPQ,high,Ensco → Valaris; bankrupt 2020
 Q,,2011-04-01,none,,high,Qwest; acquired 2011; Q reused by Qnity 2025
@@ -80,3 +79,43 @@ QLGC,,,none,,high,QLogic; removed 2011; no free price history
 RX,,,none,,high,IMS Health; taken private 2010; no free price history
 SUNEQ,,,none,,high,SunEdison/MEMC; Tiingo SUNE ambiguous (reused); no free price history
 TLAB,,,none,,high,Tellabs; acquired 2013; no free price history
+ADT,,2016-05-01,tiingo,US000000000204,high,"ADT Corp (2012-2016 listing); ticker reused, fetched by Tiingo permaTicker"
+ALTR,,2015-12-27,tiingo,US000000000363,high,"Altera; ticker reused, fetched by Tiingo permaTicker"
+APC,,2019-08-08,tiingo,US000000000125,high,"Anadarko Petroleum; ticker reused, fetched by Tiingo permaTicker"
+BEAM,,2014-04-30,tiingo,US000000001122,high,"Beam Inc; ticker reused, fetched by Tiingo permaTicker"
+CA,,2018-11-05,tiingo,US000000000517,high,"CA Inc; ticker reused, fetched by Tiingo permaTicker"
+CEG,,2012-03-12,tiingo,US000000012475,high,"Constellation Energy Group (old); ticker reused, fetched by Tiingo permaTicker"
+DELL,,2013-10-28,tiingo,US000000008722,high,"Dell Inc (pre-2013 buyout); ticker reused, fetched by Tiingo permaTicker"
+DNB,,2017-04-04,tiingo,US000000000530,high,"Dun & Bradstreet (pre-2019 buyout); ticker reused, fetched by Tiingo permaTicker"
+DO,,2016-10-02,tiingo,US000000000294,high,"Diamond Offshore (old equity); ticker reused, fetched by Tiingo permaTicker"
+DOW,,2017-08-31,tiingo,US000000000144,high,"The Dow Chemical Company; ticker reused, fetched by Tiingo permaTicker"
+EMC,,2016-09-06,tiingo,US000000000529,high,"EMC Corporation; ticker reused, fetched by Tiingo permaTicker"
+FTR,,2017-03-19,tiingo,US000000000228,high,"Frontier Communications (old equity); ticker reused, fetched by Tiingo permaTicker"
+MON,,2018-06-06,tiingo,US000000000296,high,"Monsanto; ticker reused, fetched by Tiingo permaTicker"
+POM,,2016-03-23,tiingo,US000000002345,high,"Pepco Holdings; ticker reused, fetched by Tiingo permaTicker"
+S,,2013-07-08,tiingo,US000000000188,high,"Sprint; ticker reused, fetched by Tiingo permaTicker"
+SE,,2017-02-26,tiingo,US000000002560,high,"Spectra Energy; ticker reused, fetched by Tiingo permaTicker"
+SNDK,,2016-05-11,tiingo,US000000000217,high,"SanDisk Corp (old; acquired 2016); ticker reused, fetched by Tiingo permaTicker"
+SPLS,,2017-09-12,tiingo,US000000002661,high,"Staples; ticker reused, fetched by Tiingo permaTicker"
+STI,,2019-12-08,tiingo,US000000000420,high,"SunTrust Banks; ticker reused, fetched by Tiingo permaTicker"
+STR,,2010-06-30,tiingo,US000000007847,high,"Questar; ticker reused, fetched by Tiingo permaTicker"
+WRK,,2024-07-07,tiingo,US000000010670,high,"WestRock; ticker reused, fetched by Tiingo permaTicker"
+FOXA,,2019-03-19,tiingo,TFCFA,high,21st Century Fox class A until the Disney deal (2019-03-20)
+FOX,,2019-03-19,none,,high,21st Century Fox class B (dual class; dropped anyway)
+ACS,,2010-02-07,none,,high,Affiliated Computer Services; Tiingo history starts 2010-02
+BRCM,,2016-01-31,none,,high,Broadcom Corp; Tiingo history starts 2016
+CVC,,2016-06-20,none,,high,Cablevision; Tiingo history starts 2016
+HAR,,2017-03-12,none,,high,Harman; Tiingo history starts 2016
+HOT,,2016-09-22,none,,high,Starwood Hotels; Tiingo history starts 2016
+LLTC,,2017-03-12,none,,high,Linear Technology; Tiingo history starts 2016
+PCP,,2016-01-31,none,,high,Precision Castparts; Tiingo history starts 2016
+CSRA,,2018-04-03,none,,high,CSRA; no old listing in Tiingo search
+INFO,,2022-03-01,none,,high,IHS Markit; no old listing in Tiingo search
+SII,,2010-08-26,none,,high,Smith International; no old listing in Tiingo search
+SUN,,2012-10-04,none,,high,Sunoco Inc; no old listing in Tiingo search
+BTUUQ,,2014-09-21,tiingo,US000000095151,high,old Peabody Energy (pre-2016 bankruptcy); fetched by Tiingo permaTicker
+MDP,,2011-01-03,tiingo,US000000000989,high,Meredith Corp; fetched by Tiingo permaTicker
+NYX,,2013-11-12,tiingo,US000000009182,high,NYSE Euronext; fetched by Tiingo permaTicker
+NFX,,2019-02-14,tiingo,US000000000459,high,"Newfield Exploration; ticker reused, fetched by Tiingo permaTicker"
+PLL,,2015-08-30,none,,high,Pall Corp; Tiingo permaTicker US000000075569 returns no data
+CTRA,,,tiingo,CTRA,high,"Coterra; Tiingo lists CTRA twice, price level checked 2026-10-01"

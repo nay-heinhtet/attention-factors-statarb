@@ -60,6 +60,17 @@ def test_resolve_prefers_alias_then_yahoo_then_tiingo(tmp_path):
     assert needed == {"ATVI"}
 
 
+def test_alias_to_tiingo_permaticker_skips_ticker_list(tmp_path):
+    spells = pd.DataFrame({"member_ticker": ["STI"], "spell_start": pd.to_datetime(["1996-01-02"]),
+                           "spell_end": pd.to_datetime(["2019-12-09"])})
+    rows = aliases("STI,,,tiingo,US000000000420,high,SunTrust (reused ticker)\n", tmp_path)
+    available = {("tiingo", "US000000000420"): CAL[CAL <= "2019-12-06"]}
+    table, needed = resolve_spells(spells, rows, CAL, lambda src, sym: available.get((src, sym)),
+                                   lambda s: EMPTY_LISTING, load_config())
+    assert table[["status", "asset_id"]].values.tolist() == [["alias", "tiingo:US000000000420"]]
+    assert not needed
+
+
 def test_alias_none_is_explicitly_unrecoverable(tmp_path):
     spells = pd.DataFrame({"member_ticker": ["ARNC"], "spell_start": pd.to_datetime(["1996-01-02"]),
                            "spell_end": pd.to_datetime(["2016-06-01"])})

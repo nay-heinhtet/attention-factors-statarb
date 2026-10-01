@@ -25,6 +25,7 @@ log = logging.getLogger(__name__)
 
 SUPPORTED_URL = "https://apimedia.tiingo.com/docs/tiingo/daily/supported_tickers.zip"
 PRICES_URL = "https://api.tiingo.com/tiingo/daily/{symbol}/prices"
+SEARCH_URL = "https://api.tiingo.com/tiingo/utilities/search"
 CROSS_CHECK = ["AAPL", "JPM", "XOM", "JNJ", "PG"]
 
 
@@ -82,15 +83,28 @@ class TiingoClient:
         self.min_interval = min_interval
         self._last = 0.0
 
+    def _get(self, url: str, params: dict) -> requests.Response:
+        wait = self.min_interval - (time.monotonic() - self._last)
+        if wait > 0:
+            time.sleep(wait)
+        resp = self.session.get(url, params=params, timeout=60)
+        self._last = time.monotonic()
+        return resp
+
+    def search(self, ticker: str) -> list[dict]:
+        """All listings ever using ``ticker``, delisted ones included; each has a ``permaTicker``.
+
+        A reused ticker's price endpoint returns the *current* listing; the old one can be
+        fetched by passing its permaTicker to :meth:`prices` instead.
+        """
+        resp = self._get(SEARCH_URL, {"query": ticker, "exactTickerMatch": "true", "includeDelisted": "true"})
+        resp.raise_for_status()
+        return resp.json()
+
     def prices(self, symbol: str, start: str, end: str) -> pd.DataFrame | None:
-        """Daily prices, or None if Tiingo has nothing for the symbol."""
+        """Daily prices for a ticker or permaTicker, or None if Tiingo has nothing."""
         for attempt in range(4):
-            wait = self.min_interval - (time.monotonic() - self._last)
-            if wait > 0:
-                time.sleep(wait)
-            resp = self.session.get(PRICES_URL.format(symbol=symbol),
-                                    params={"startDate": start, "endDate": end, "format": "json"}, timeout=60)
-            self._last = time.monotonic()
+            resp = self._get(PRICES_URL.format(symbol=symbol), {"startDate": start, "endDate": end, "format": "json"})
             if resp.status_code == 200:
                 data = resp.json()
                 if isinstance(data, list):

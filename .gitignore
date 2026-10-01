@@ -1,0 +1,17 @@
+# environment and secrets
+.venv/
+.env
+
+# data: raw downloads are licensed for personal use only, never commit them
+data/raw/
+data/processed/
+
+# run artifacts (checkpoints, per-seed weights)
+results/runs/
+*.pt
+
+# python / tooling
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/

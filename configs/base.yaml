@@ -1,0 +1,106 @@
+# Base configuration: the single source of every tunable value (PLAN.md §17).
+# configs/frozen.yaml (written by `python -m statarb freeze`) overrides this for OOS runs.
+
+paths:                      # relative to the repository root
+  raw: data/raw
+  processed: data/processed
+  meta: data/meta
+  runs: results/runs
+  reports: results/reports
+
+dates:
+  download_start: "2008-01-01"
+  data_end: "2026-08-31"
+  first_holding_day: "2011-01-03"
+  oos_start: "2019-01-01"
+  train_years: 8
+  tune_train: ["2011-01-01", "2016-12-31"]
+  tune_valid: ["2017-01-01", "2018-12-31"]
+
+data:
+  membership_sha: a2430f2af0c79ddf0748e91de11bdeb1616ab5a7
+  membership_file: "S&P 500 Historical Components & Changes (Updated).csv"
+  spells_from: "2010-01-01"
+  tiingo: true
+  tiingo_seconds_between_requests: 75
+  yahoo_chunk: 50
+  coverage_min: 0.95
+  edge_tolerance_days: 5
+  review_gap_days: 10
+  gap_max_days: 60
+  return_review_threshold: 0.40
+
+universe:
+  kind: pit                 # pit | survivor
+  survivor_snapshot: "2026-08-18"
+  size: 200
+  dv_window: 63
+  dv_min_obs: 50
+  history_days: 252
+  history_min_valid: 240
+  min_price: 5.0
+  dup_corr: 0.97
+
+features:
+  groups:
+    past_returns: [ret_1d, ret_5d, ret_21d, mom_12_2, mom_12_7, mom_36_13, rel_52w_high]
+    risk: [vol_5d, vol_63d, beta_252d, ivol_63d]
+    frictions: [dvol_21d, dvol_ratio, hl_range_21d, amihud_21d]
+  drop_groups: []
+  ffill_days: 5
+  min_periods_frac: 0.8
+
+costs:
+  tc_bps: 5.0
+  short_bps: 1.0
+
+model:
+  factors: attention        # attention | pca
+  K: 10
+  d: 32
+  ridge_rel: 1.0e-3
+  sequence: lstm            # lstm | longconv
+  hidden: 32
+  layers: 1
+  dropout: 0.1
+  lookback: 30
+  squash: 1.0e-3
+
+train:
+  epochs: 30
+  lr: 3.0e-3
+  weight_decay_seq: 0.05
+  block_days: 126
+  min_block_days: 63
+  lambda_var: 100.0
+  ev_min_days: 20
+  grad_clip: 1.0
+  device: auto              # auto | cuda | cpu
+  seeds_tune: [0, 1, 2]
+  seeds_oos: [0, 1, 2, 3, 4]
+
+backtest:
+  exec_lag: 0
+  annualization: 252
+  bootstrap_n: 2000
+  bootstrap_block: 21
+  nw_lags: 5
+
+reversal:
+  lookback: 5
+
+pairs:
+  formation_days: 252
+  min_valid_days: 247
+  pvalue_max: 0.05
+  halflife: [1, 63]
+  beta: [0.2, 5.0]
+  max_pairs: 20
+  max_pairs_per_asset: 2
+  entry_z: 2.0
+  exit_z: 0.5
+  stop_z: 4.0
+
+report:
+  vol_target: 0.10
+  factor_date: "2024-01-02"

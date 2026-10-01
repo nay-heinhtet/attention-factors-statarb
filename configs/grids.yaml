@@ -1,0 +1,34 @@
+# Tuning grids (PLAN.md §11). Train 2011-2016, validate 2017-2018, metric = validation net Sharpe
+# averaged over train.seeds_tune. Among configs within `tie_margin` of the best, the tie_break
+# preferences are applied in order.
+
+selection:
+  metric: valid_net_sharpe
+  tie_margin: 0.2
+
+attention:
+  grid:
+    K: [5, 10, 20]
+    lambda_var: [1.0, 10.0, 100.0]
+    lr: [1.0e-3, 3.0e-3]
+  tie_break: [[lambda_var, 100.0], [lr, 3.0e-3], [K, 10]]
+  extension:                # run once, only if the best validation net Sharpe <= 0
+    lookback: [20, 60]
+    hidden: [16, 64]
+
+pca:
+  grid:
+    K: [5, 10, 20]
+    lr: [1.0e-3, 3.0e-3]
+  tie_break: [[lr, 3.0e-3], [K, 10]]
+
+pairs:
+  grid:
+    entry_z: [1.5, 2.0, 2.5]
+    max_pairs: [10, 20, 40]
+  tie_break: [[entry_z, 2.0], [max_pairs, 20]]
+
+reversal:
+  grid:
+    lookback: [1, 5, 21]
+  tie_break: [[lookback, 5]]

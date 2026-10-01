@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "statarb"
+version = "0.1.0"
+description = "Simplified reproduction of 'Attention Factors for Statistical Arbitrage' (arXiv:2510.11616)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "torch==2.14.0",
+    "numpy==2.5.3",
+    "pandas==3.0.6",
+    "pyarrow==25.0.1",
+    "scipy==1.18.1",
+    "statsmodels==0.15.0",
+    "yfinance==1.7.0",
+    "matplotlib==3.11.2",
+    "pyyaml",
+    "requests",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.1.1"]
+notebook = ["jupyterlab"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: trains models"]

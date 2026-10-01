@@ -60,6 +60,25 @@ def form_universe(
     return pd.concat(rows, ignore_index=True)[["month", "formation_date", "asset_id", "rank", "dv63"]]
 
 
+def load_universe(paths, kind: str = "pit") -> pd.DataFrame:
+    return pd.read_parquet(paths.processed / f"universe_{kind}.parquet")
+
+
+def daily_universe(universe: pd.DataFrame, valid: pd.DataFrame, start, end) -> pd.DataFrame:
+    """U_t for each holding day t in [start, end]: month m's universe ∩ assets valid at close t−1.
+
+    ``valid`` is the dates × assets validity matrix on the master calendar.
+    """
+    days = valid.index[(valid.index >= pd.Timestamp(start)) & (valid.index <= pd.Timestamp(end))]
+    member = pd.DataFrame(False, index=days, columns=valid.columns)
+    months = days.to_period("M")
+    for month, group in universe.groupby(universe["month"].dt.to_period("M")):
+        cols = [a for a in group["asset_id"] if a in member.columns]
+        member.loc[months == month, cols] = True
+    prev_valid = valid.shift(1).reindex(days).eq(True)
+    return member & prev_valid
+
+
 def duplicate_pairs(universe: pd.DataFrame, ret: pd.DataFrame, window: int, threshold: float) -> pd.DataFrame:
     """Pairs in the same month's universe whose trailing return correlation exceeds ``threshold``."""
     found = {}

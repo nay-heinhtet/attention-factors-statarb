@@ -28,3 +28,22 @@ def test_grid_and_override():
     assert len(grid({"K": [5, 10, 20], "lr": [1e-3, 3e-3]})) == 6
     assert override("pca", {"K": 5}) == {"model": {"factors": "pca", "K": 5}}
     assert override("reversal", {"lookback": 21}) == {"reversal": {"lookback": 21}}
+
+
+def test_test_years_cover_2019_to_data_end_with_8_year_windows():
+    from statarb.config import load_config
+    from statarb.walkforward import test_years
+
+    years = test_years(load_config())
+    assert years[0] == (2019, "2011-01-01", "2018-12-31", "2019-01-01", "2019-12-31")
+    assert years[-1] == (2026, "2018-01-01", "2025-12-31", "2026-01-01", "2026-08-31")
+    assert len(years) == 8
+
+
+def test_ensemble_renormalizes():
+    from statarb.walkforward import ensemble
+
+    a = pd.DataFrame({"x": [0.5, 1.0], "y": [-0.5, 0.0]})
+    b = pd.DataFrame({"x": [0.5, -1.0], "y": [-0.5, 0.0]})
+    e = ensemble([a, b])
+    assert e.loc[0].tolist() == [0.5, -0.5] and e.loc[1].tolist() == [0.0, 0.0]

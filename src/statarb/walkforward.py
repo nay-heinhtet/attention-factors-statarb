@@ -164,6 +164,145 @@ def tune(cfg: dict, args) -> None:
     log.info("%s tuning (validation net SR by config):\n%s", strategy, summary.round(3).to_string())
 
 
+def git_state() -> tuple[str, bool]:
+    """(commit hash, tree is clean). Ignored files (data, run artifacts) don't count."""
+    import subprocess
+
+    from statarb.paths import REPO_ROOT
+
+    commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO_ROOT, capture_output=True, text=True).stdout.strip()
+    dirty = subprocess.run(["git", "status", "--porcelain"], cwd=REPO_ROOT, capture_output=True, text=True).stdout.strip()
+    return commit, not dirty
+
+
+def run_name(args) -> str:
+    parts = [args.strategy]
+    if args.universe != "pit":
+        parts.append(args.universe)
+    if args.sequence:
+        parts.append(args.sequence)
+    if args.drop_group:
+        parts.append(f"drop-{args.drop_group}")
+    if args.K is not None:
+        parts.append(f"K{args.K}")
+    if args.exec_lag:
+        parts.append(f"lag{args.exec_lag}")
+    return "_".join(parts)
+
+
+def oos_config(cfg: dict, frozen: dict, args) -> dict:
+    c = deep_merge(cfg, frozen["strategies"][args.strategy])
+    extra = {}
+    if args.sequence:
+        extra.setdefault("model", {})["sequence"] = args.sequence
+    if args.K is not None:
+        extra.setdefault("model", {})["K"] = args.K
+    if args.drop_group:
+        if args.drop_group not in c["features"]["groups"]:
+            raise ValueError(f"unknown feature group {args.drop_group!r}")
+        extra["features"] = {"drop_groups": [args.drop_group]}
+    if args.exec_lag is not None:
+        extra["backtest"] = {"exec_lag": args.exec_lag}
+    return deep_merge(c, extra)
+
+
+def test_years(cfg: dict) -> list[tuple[int, str, str, str, str]]:
+    """(year, train start, train end, test start, test end) for every out-of-sample year."""
+    first = pd.Timestamp(cfg["dates"]["oos_start"]).year
+    end = pd.Timestamp(cfg["dates"]["data_end"])
+    n = cfg["dates"]["train_years"]
+    return [(y, f"{y - n}-01-01", f"{y - 1}-12-31", f"{y}-01-01", str(min(pd.Timestamp(f"{y}-12-31"), end).date()))
+            for y in range(first, end.year + 1)]
+
+
+def oos_model_weights(c: dict, data, out_dir) -> dict[int, pd.DataFrame]:
+    """Walk-forward weights per seed: retrain from scratch each year on the previous 8 years."""
+    import torch
+
+    (out_dir / "checkpoints").mkdir(parents=True, exist_ok=True)
+    per_seed = {s: [] for s in c["train"]["seeds_oos"]}
+    for year, t0, t1, v0, v1 in test_years(c):
+        for seed in per_seed:
+            t = time.time()
+            model, scale, history = fit(data, c, t0, t1, seed)
+            per_seed[seed].append(predict(model, data, c, scale, v0, v1))
+            torch.save({"state_dict": model.state_dict(), "scale": scale, "history": history},
+                       out_dir / "checkpoints" / f"Y{year}_seed{seed}.pt")
+            log.info("%d seed %d: trained %s → %s in %.0fs", year, seed, t0, t1, time.time() - t)
+    return {s: pd.concat(parts) for s, parts in per_seed.items()}
+
+
+def ensemble(weights: list[pd.DataFrame]) -> pd.DataFrame:
+    mean = sum(w.fillna(0.0) for w in weights) / len(weights)
+    return mean.div(mean.abs().sum(axis=1).where(lambda s: s > 0), axis=0).fillna(0.0)
+
+
+def oos(cfg: dict, args) -> None:
+    """Out-of-sample walk-forward 2019 → data_end with the frozen configuration (PLAN.md §12)."""
+    paths = project_paths(cfg)
+    frozen_path = CONFIG_DIR / "frozen.yaml"
+    if not frozen_path.exists():
+        raise RuntimeError("configs/frozen.yaml is missing: run tuning and `freeze` first")
+    commit, clean = git_state()
+    if not clean:
+        raise RuntimeError("git tree has uncommitted changes: commit before any out-of-sample run")
+    from statarb.utils import config_hash
+
+    c = oos_config(cfg, read_yaml(frozen_path), args)
+    name = run_name(args)
+    out_dir = paths.runs / name
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "config.yaml").write_text(yaml.safe_dump(c, sort_keys=False))
+    market = load_market(c, paths)
+    start, end = c["dates"]["oos_start"], c["dates"]["data_end"]
+
+    if args.strategy in MODEL_STRATEGIES:
+        device = "cuda" if c["train"]["device"] != "cpu" else "cpu"
+        data = load_tensors(tensors_path(paths, args.universe, "real")).to(device)
+        per_seed = oos_model_weights(c, data, out_dir)
+        for seed, w in per_seed.items():
+            w.to_parquet(out_dir / f"weights_seed{seed}.parquet")
+        weights = ensemble(list(per_seed.values()))
+    else:
+        universe = load_universe(paths, args.universe)
+        U = daily_universe(universe, market.valid, start, end)
+        per_seed = {}
+        if args.strategy == "pairs":
+            close = wide(load_panel(paths, ["close_adj"]), "close_adj").reindex(market.calendar)
+            sectors = pd.read_csv(paths.processed / "sectors.csv").set_index("asset_id")["sector"]
+            weights = pairs_weights(close, market.valid, universe, sectors, U.index[0], U.index[-1], c["pairs"])
+        else:
+            features = pd.read_parquet(paths.processed / "features.parquet")
+            past = features.pivot(index="date", columns="asset_id", values=FEATURE[c["reversal"]["lookback"]])
+            weights = reversal_weights(past.reindex(market.calendar), U)
+    weights.to_parquet(out_dir / "weights_ensemble.parquet")
+
+    bt = dict(tc_bps=c["costs"]["tc_bps"], short_bps=c["costs"]["short_bps"], exec_lag=c["backtest"]["exec_lag"],
+              gap_max_days=c["data"]["gap_max_days"])
+    result = run_backtest(weights, market, **bt)
+    metrics = summarize(result, market.spy, c["backtest"])
+    metrics["per_year_net_sr"] = {int(y): round(float(v), 3) for y, v in
+                                  result["net"].groupby(result.index.year).apply(sharpe).items()}
+    if per_seed:
+        seed_sr = [sharpe(run_backtest(w, market, **bt)["net"]) for w in per_seed.values()]
+        metrics["seed_net_sr"] = [round(s, 3) for s in seed_sr]
+        metrics["seed_net_sr_mean"], metrics["seed_net_sr_sd"] = float(np.mean(seed_sr)), float(np.std(seed_sr, ddof=1))
+
+    reports = paths.reports / "oos"
+    reports.mkdir(parents=True, exist_ok=True)
+    result.to_csv(reports / f"{name}_daily.csv")
+    (reports / f"{name}.json").write_text(json.dumps(metrics, indent=1, default=str))
+    log_row = pd.DataFrame([{"timestamp": pd.Timestamp.now().isoformat(timespec="seconds"), "commit": commit,
+                             "config_hash": config_hash(c), "run": name, "sr_net": round(metrics["sr_net"], 4),
+                             "sr_gross": round(metrics["sr_gross"], 4)}])
+    log_file = paths.reports.parent / "oos_runs.csv"
+    log_row.to_csv(log_file, mode="a", header=not log_file.exists(), index=False)
+    log.info("OOS %s %s → %s: net SR %.2f [%.2f, %.2f] (gross %.2f), mu_net %.2f%%, vol %.2f%%, maxDD %.1f%%, "
+             "turnover %.2f, beta %.2f (t %.1f)", name, metrics["start"], metrics["end"], metrics["sr_net"],
+             metrics["sr_net_ci_lo"], metrics["sr_net_ci_hi"], metrics["sr_gross"], 100 * metrics["mu_net"],
+             100 * metrics["vol"], 100 * metrics["max_dd"], metrics["turnover"], metrics["beta"], metrics["beta_t"])
+
+
 def freeze(cfg: dict, args) -> None:
     """Select every strategy's settings from the tuning tables and write configs/frozen.yaml."""
     paths = project_paths(cfg)

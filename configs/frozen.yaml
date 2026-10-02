@@ -1,0 +1,56 @@
+# Written by `python -m statarb freeze` from results/reports/tuning.csv. Do not edit.
+frozen_on: '2026-10-02'
+strategies:
+  attention:
+    model:
+      factors: attention
+      K: 5
+      hidden: 16
+      lookback: 60
+    train:
+      lambda_var: 1.0
+      lr: 0.003
+  pca:
+    model:
+      factors: pca
+      K: 5
+    train:
+      lr: 0.003
+  pairs:
+    pairs:
+      entry_z: 1.5
+      max_pairs: 40
+  reversal:
+    reversal:
+      lookback: 5
+validation:
+  attention:
+    params:
+      K: 5
+      hidden: 16
+      lambda_var: 1.0
+      lookback: 60
+      lr: 0.003
+    valid_net_sr_mean: -0.5022
+    valid_net_sr_sd: 0.2589
+    valid_gross_sr_mean: 0.685
+  pca:
+    params:
+      K: 5
+      lr: 0.003
+    valid_net_sr_mean: -0.206
+    valid_net_sr_sd: 0.1833
+    valid_gross_sr_mean: 0.5182
+  pairs:
+    params:
+      entry_z: 1.5
+      max_pairs: 40
+    valid_net_sr_mean: -0.2656
+    valid_net_sr_sd: null
+    valid_gross_sr_mean: 0.2898
+  reversal:
+    params:
+      lookback: 5
+    valid_net_sr_mean: -1.103
+    valid_net_sr_sd: null
+    valid_gross_sr_mean: 0.3437

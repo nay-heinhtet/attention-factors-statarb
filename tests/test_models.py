@@ -51,3 +51,15 @@ def test_pca_factor_variant_uses_given_weights():
     X, U = torch.rand(2, 20, 15), torch.ones(2, 20, dtype=torch.bool)
     out = model(X, U, torch.randn(2, 30, 20) * 0.02, torch.zeros(2, 20), 0.015, pca_wF=torch.randn(2, 20, 20))
     assert out["wF"].shape == (2, 3, 20)
+
+
+def test_lstm_chunking_is_exact():
+    torch.manual_seed(0)
+    lstm = LSTMSignal(hidden=8).eval()
+    x = torch.randn(50, 30, 2)
+    full = lstm(x)
+    LSTMSignal.CHUNK = 7
+    try:
+        assert torch.allclose(lstm(x), full, atol=1e-6)
+    finally:
+        LSTMSignal.CHUNK = 8192

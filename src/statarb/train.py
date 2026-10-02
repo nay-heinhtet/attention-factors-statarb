@@ -86,7 +86,7 @@ def feature_index(data: ArbData, cfg: dict) -> list[int]:
 
 def blocks_for_epoch(h: np.ndarray, block: int, min_block: int, rng: np.random.Generator) -> list[np.ndarray]:
     """Consecutive (block+1)-day windows from a random offset; a short trailing block is dropped."""
-    offset = int(rng.integers(0, block))
+    offset = int(rng.integers(0, max(1, min(block, len(h) - 1 - min_block))))  # leave room for one block
     out = []
     for start in range(offset, len(h) - 1, block):
         end = min(start + block, len(h) - 1)
@@ -140,6 +140,10 @@ def predict(model: ArbitrageModel, data: ArbData, cfg: dict, scale: float, start
     device = device or next(model.parameters()).device
     model.eval()
     h = data.day_range(start, end)
-    batch = make_batch(data, h, cfg["model"]["lookback"], feature_index(data, cfg), device)
-    out = model(batch["X"], batch["U"], batch["R_hist"], batch["R_t"], scale, batch["pca_wF"])
-    return pd.DataFrame(out["w"].cpu().numpy(), index=data.holding_days[h], columns=data.asset_ids)
+    feat_idx, chunk = feature_index(data, cfg), cfg["train"]["block_days"]
+    parts = []
+    for i in range(0, len(h), chunk):  # each day's weights depend only on that day's inputs
+        batch = make_batch(data, h[i: i + chunk], cfg["model"]["lookback"], feat_idx, device)
+        out = model(batch["X"], batch["U"], batch["R_hist"], batch["R_t"], scale, batch["pca_wF"])
+        parts.append(out["w"].cpu().numpy())
+    return pd.DataFrame(np.concatenate(parts), index=data.holding_days[h], columns=data.asset_ids)

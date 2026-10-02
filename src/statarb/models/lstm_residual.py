@@ -12,6 +12,10 @@ from torch import nn
 
 
 class LSTMSignal(nn.Module):
+    # Sequences per cuDNN call. One call over a whole block (~25k sequences) can request a
+    # multi-GB workspace for larger hidden sizes; sequences are independent, so chunking is exact.
+    CHUNK = 8192
+
     def __init__(self, hidden: int = 32, layers: int = 1, dropout: float = 0.1):
         super().__init__()
         self.lstm = nn.LSTM(2, hidden, layers, batch_first=True)
@@ -20,5 +24,5 @@ class LSTMSignal(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """x (n, L, 2) → scores (n,)."""
-        _, (h, _) = self.lstm(x)
-        return self.head(self.drop(h[-1])).squeeze(-1)
+        last = torch.cat([self.lstm(part)[1][0][-1] for part in torch.split(x, self.CHUNK)])
+        return self.head(self.drop(last)).squeeze(-1)

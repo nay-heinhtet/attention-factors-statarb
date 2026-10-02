@@ -44,6 +44,7 @@ def build_parser() -> argparse.ArgumentParser:
     cmd["universe"].add_argument("--kind", choices=["pit", "survivor"], default="pit")
     cmd["tensors"].add_argument("--universe", choices=["pit", "survivor"], default="pit")
     cmd["tensors"].add_argument("--variant", choices=["real", "noise"], default="real")
+    cmd["tensors"].add_argument("--noise-seed", type=int, default=0, help="seed of the noise draw (variant noise)")
     cmd["tune"].add_argument("--strategy", choices=STRATEGIES, required=True)
 
     oos = cmd["oos"]

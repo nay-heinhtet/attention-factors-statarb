@@ -32,7 +32,9 @@ features:
 
 tensors:
 	$(STATARB) tensors --universe pit --variant real
-	$(STATARB) tensors --universe pit --variant noise
+	$(STATARB) tensors --universe pit --variant noise --noise-seed 0
+	$(STATARB) tensors --universe pit --variant noise --noise-seed 1
+	$(STATARB) tensors --universe pit --variant noise --noise-seed 2
 	$(STATARB) tensors --universe survivor --variant real
 
 test:

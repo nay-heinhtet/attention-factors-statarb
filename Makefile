@@ -63,12 +63,12 @@ checks:
 	$(STATARB) oos --strategy attention --universe survivor
 	$(STATARB) checks
 
+# K=5 is the frozen headline model itself, so it is not re-run as an ablation.
 ablations:
 	$(STATARB) oos --strategy attention --sequence longconv
 	$(STATARB) oos --strategy attention --drop-group past_returns
 	$(STATARB) oos --strategy attention --drop-group risk
 	$(STATARB) oos --strategy attention --drop-group frictions
-	$(STATARB) oos --strategy attention --K 5
 	$(STATARB) oos --strategy attention --K 10
 	$(STATARB) oos --strategy attention --K 20
 

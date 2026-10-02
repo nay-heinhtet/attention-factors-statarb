@@ -1,0 +1,11 @@
+{
+ "sr_net_pit": -0.37126294975395424,
+ "sr_net_survivor": -0.02384335978230391,
+ "delta_survivor_minus_pit": 0.34741958997165034,
+ "delta_ci": [
+  -0.38331850077434804,
+  1.1741249025002298
+ ],
+ "oos_member_days_with_data": 0.9991241474605944,
+ "oos_tiingo_slot_share": 0.027445652173913045
+}

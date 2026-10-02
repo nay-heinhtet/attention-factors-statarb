@@ -47,8 +47,8 @@ def markdown_table(df, index: bool = True, digits: int = 2) -> str:
 
     cols = ([df.index.name or ""] if index else []) + [str(c) for c in df.columns]
     lines = ["| " + " | ".join(cols) + " |", "|" + "---|" * len(cols)]
-    for idx, row in df.iterrows():
-        cells = ([str(idx)] if index else []) + [fmt(v) for v in row]
+    for idx, *values in df.itertuples(index=True):  # itertuples keeps each column's dtype
+        cells = ([str(idx)] if index else []) + [fmt(v) for v in values]
         lines.append("| " + " | ".join(cells) + " |")
     return "\n".join(lines)
 

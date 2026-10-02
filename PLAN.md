@@ -1,6 +1,6 @@
 # Attention-Based Statistical Arbitrage: Build Plan
 
-**Status:** Phase 7 done 2026-10-02 (OOS walk-forward run once under `frozen-v1`). Next: Phase 8 (bias and robustness checks).
+**Status:** Phase 8 done 2026-10-02 (look-ahead, survivorship, lag and cost checks). Next: Phase 9 (ablations, optional) or Phase 10 (report).
 **What this is:** the spec for building the project. Every design decision is already made (see §0).
 **Paper:** Epstein, Wang, Choi, Pelger, "Attention Factors for Statistical Arbitrage", arXiv:2510.11616 (ICAIF '25). This plan is based on the full paper text plus live checks of every data source (Appendix B).
 

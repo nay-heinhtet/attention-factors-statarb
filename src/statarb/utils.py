@@ -40,6 +40,19 @@ def get_device(preference: str = "auto"):
     raise ValueError(f"unknown device preference {preference!r}; expected auto, cuda or cpu")
 
 
+def markdown_table(df, index: bool = True, digits: int = 2) -> str:
+    """A pipe table for reports (avoids a dependency on tabulate)."""
+    def fmt(v):
+        return f"{v:.{digits}f}" if isinstance(v, (float, np.floating)) and not isinstance(v, bool) else str(v)
+
+    cols = ([df.index.name or ""] if index else []) + [str(c) for c in df.columns]
+    lines = ["| " + " | ".join(cols) + " |", "|" + "---|" * len(cols)]
+    for idx, row in df.iterrows():
+        cells = ([str(idx)] if index else []) + [fmt(v) for v in row]
+        lines.append("| " + " | ".join(cells) + " |")
+    return "\n".join(lines)
+
+
 def config_hash(cfg: dict) -> str:
     """Short hash of a config, independent of key order; recorded with every OOS run."""
     blob = json.dumps(cfg, sort_keys=True, default=str).encode()

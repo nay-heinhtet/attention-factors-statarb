@@ -60,6 +60,7 @@ oos:
 	$(STATARB) oos --strategy reversal
 
 checks:
+	$(STATARB) oos --strategy attention --universe survivor
 	$(STATARB) checks
 
 ablations:

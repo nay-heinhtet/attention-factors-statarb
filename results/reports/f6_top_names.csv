@@ -1,0 +1,51 @@
+factor,rank,ticker,sector,weight %
+factor 1,1,CCL,Consumer Cyclical,0.97
+factor 1,2,WBA,Healthcare,0.91
+factor 1,3,ILMN,Healthcare,0.87
+factor 1,4,MRNA,Healthcare,0.85
+factor 1,5,RCL,Consumer Cyclical,0.84
+factor 1,6,URI,Industrials,0.83
+factor 1,7,ALB,Basic Materials,0.82
+factor 1,8,EW,Healthcare,0.81
+factor 1,9,ON,Technology,0.8
+factor 1,10,DLTR,Consumer Defensive,0.8
+factor 2,1,ENPH,Technology,1.51
+factor 2,2,ALB,Basic Materials,1.31
+factor 2,3,MRNA,Healthcare,1.3
+factor 2,4,URI,Industrials,1.18
+factor 2,5,ILMN,Healthcare,1.12
+factor 2,6,WBA,Healthcare,1.08
+factor 2,7,BX,Financial Services,1.03
+factor 2,8,CCL,Consumer Cyclical,1.02
+factor 2,9,FCX,Basic Materials,1.0
+factor 2,10,ON,Technology,1.0
+factor 3,1,WBA,Healthcare,1.0
+factor 3,2,HES,Energy,0.97
+factor 3,3,MRO,Energy,0.96
+factor 3,4,NEM,Basic Materials,0.96
+factor 3,5,MPC,Energy,0.93
+factor 3,6,SLB,Energy,0.89
+factor 3,7,FTNT,Technology,0.88
+factor 3,8,ALB,Basic Materials,0.88
+factor 3,9,HAL,Energy,0.86
+factor 3,10,UAL,Industrials,0.84
+factor 4,1,ETSY,Consumer Cyclical,1.69
+factor 4,2,ILMN,Healthcare,1.64
+factor 4,3,EL,Consumer Defensive,1.42
+factor 4,4,TFC,Financial Services,1.31
+factor 4,5,PYPL,Financial Services,1.21
+factor 4,6,ENPH,Technology,1.13
+factor 4,7,USB,Financial Services,1.12
+factor 4,8,FIS,Technology,1.09
+factor 4,9,ALB,Basic Materials,1.09
+factor 4,10,WBA,Healthcare,1.05
+factor 5,1,CCL,Consumer Cyclical,1.48
+factor 5,2,ON,Technology,1.29
+factor 5,3,URI,Industrials,1.23
+factor 5,4,BX,Financial Services,1.13
+factor 5,5,AVGO,Technology,1.09
+factor 5,6,SNPS,Technology,1.06
+factor 5,7,TSLA,Consumer Cyclical,1.06
+factor 5,8,ODFL,Industrials,1.03
+factor 5,9,ALB,Basic Materials,1.0
+factor 5,10,FTNT,Technology,1.0

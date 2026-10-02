@@ -1,0 +1,5 @@
+model,SR gross,SR net
+"Attention factors (paper, K=30, N=500, CRSP 1998–2021)",3.97,2.28
+"PCA + LongConv two-step (paper, K=30)",2.79,1.57
+"Attention factors (this build, K=5, N=200, 2019–2026)",0.26208226423332953,-0.37126294975395313
+"PCA + LSTM two-step (this build, K=5)",0.3345887583674881,-0.11353819632887144

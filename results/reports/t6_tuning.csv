@@ -1,0 +1,5 @@
+strategy,frozen settings,valid SR net,valid SR gross
+Attention + LSTM,"K=5, hidden=16, lambda_var=1.0, lookback=60, lr=0.003",-0.5022,0.685
+PCA + LSTM (two-step),"K=5, lr=0.003",-0.206,0.5182
+Pairs trading,"entry_z=1.5, max_pairs=40",-0.2656,0.2898
+5-day reversal,lookback=5,-1.103,0.3437

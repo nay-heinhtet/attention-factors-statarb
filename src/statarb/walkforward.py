@@ -165,13 +165,14 @@ def tune(cfg: dict, args) -> None:
 
 
 def git_state() -> tuple[str, bool]:
-    """(commit hash, tree is clean). Ignored files (data, run artifacts) don't count."""
+    """(commit hash, tree is clean). Ignored files and the results/ outputs of OOS runs don't count."""
     import subprocess
 
     from statarb.paths import REPO_ROOT
 
     commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO_ROOT, capture_output=True, text=True).stdout.strip()
-    dirty = subprocess.run(["git", "status", "--porcelain"], cwd=REPO_ROOT, capture_output=True, text=True).stdout.strip()
+    status = subprocess.run(["git", "status", "--porcelain"], cwd=REPO_ROOT, capture_output=True, text=True).stdout
+    dirty = [line for line in status.splitlines() if not line[3:].startswith("results/")]
     return commit, not dirty
 
 
